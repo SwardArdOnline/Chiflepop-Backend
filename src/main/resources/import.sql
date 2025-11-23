@@ -15,3 +15,15 @@ INSERT INTO Estados (EstadoID, Descripcion) VALUES (2, 'Pagado');
 INSERT INTO Estados (EstadoID, Descripcion) VALUES (3, 'Enviado');
 INSERT INTO Estados (EstadoID, Descripcion) VALUES (4, 'Entregado');
 INSERT INTO Estados (EstadoID, Descripcion) VALUES (5, 'Cancelado');
+
+INSERT INTO DireccionesEntrega (ClienteID, Direccion, Ciudad, Departamento, Pais, EsPrincipal) VALUES (1, 'Av. Larco 123', 'Lima', 'Lima', 'Perú', 1);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Clásico', 'El sabor tradicional, crujiente y con el punto exacto de sal marina.', 3.50, 50);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Picante', 'Para los valientes. Con un toque de ají limo y especias.', 4.00, 45);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle con Limón', 'Ácido y refrescante. La combinación perfecta para el plátano.', 4.50, 30);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Dulce (Madurito)', 'Hecho de plátano maduro, naturalmente dulce y caramelizado.', 4.20, 25);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle al Ajo', 'Crujientes láminas con un intenso sabor a ajo tostado.', 3.80, 40);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Familiar', 'Bolsa gigante de 500g ideal para compartir en reuniones.', 8.50, 20);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle con Cecina', 'Edición Premium con trocitos de cecina ahumada de la selva.', 6.00, 15);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Ondulado', 'Corte especial ondulado para mayor crocancia y dip.', 3.90, 60);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Mix Tropical', 'Mezcla de chifles, camote frito y yuca frita.', 5.00, 35);
+INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Sin Sal', 'La opción saludable, 100% natural sin sodio añadido.', 3.50, 20);

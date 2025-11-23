@@ -1,5 +1,7 @@
 package com.chiflepop.demo.controllers;
 
+import com.chiflepop.demo.dto.admin.AsignarTareaDTO;
+import com.chiflepop.demo.dto.admin.EmpleadoDTO;
 import com.chiflepop.demo.dto.admin.ProductoDTO;
 import com.chiflepop.demo.dto.admin.PromocionDTO;
 import com.chiflepop.demo.model.*;
@@ -30,9 +32,6 @@ public class AdminController {
         adminService.eliminarCliente(id);
         return ResponseEntity.noContent().build();
     }
-
-    // --- GESTIÓN DE PRODUCTOS ---
-
     @GetMapping("/productos")
     public ResponseEntity<List<Producto>> listarProductos() {
         return ResponseEntity.ok(adminService.listarProductos());
@@ -74,5 +73,35 @@ public class AdminController {
     public ResponseEntity<Void> eliminarPromocion(@PathVariable Integer id) {
         adminService.eliminarPromocion(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/empleados")
+    public ResponseEntity<List<Empleado>> listarEmpleados() {
+        return ResponseEntity.ok(adminService.listarEmpleados());
+    }
+
+    @PostMapping("/empleados")
+    public ResponseEntity<Empleado> contratarEmpleado(@RequestBody EmpleadoDTO dto) {
+        return ResponseEntity.ok(adminService.guardarEmpleado(dto));
+    }
+
+    @PutMapping("/empleados/{id}")
+    public ResponseEntity<Empleado> editarEmpleado(@PathVariable Integer id, @RequestBody EmpleadoDTO dto) {
+        return ResponseEntity.ok(adminService.actualizarEmpleado(id, dto));
+    }
+
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<Void> despedirEmpleado(@PathVariable Integer id) {
+        adminService.eliminarEmpleado(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/asignar-tarea")
+    public ResponseEntity<?> asignarTareaLogistica(@RequestBody AsignarTareaDTO dto) {
+        try {
+            var asignacion = adminService.asignarEmpleadoAPedido(dto);
+            return ResponseEntity.ok("Empleado asignado correctamente al pedido. ID Asignación: " + asignacion.getEmpleadoPedidoId());
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

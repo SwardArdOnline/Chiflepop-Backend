@@ -1,5 +1,7 @@
 package com.chiflepop.demo.services.admin;
 
+import com.chiflepop.demo.dto.admin.AsignarTareaDTO;
+import com.chiflepop.demo.dto.admin.EmpleadoDTO;
 import com.chiflepop.demo.dto.admin.ProductoDTO;
 import com.chiflepop.demo.dto.admin.PromocionDTO;
 import com.chiflepop.demo.model.*;
@@ -12,11 +14,18 @@ import java.util.List;
 
 @Service
 public class AdminService {
-
-    @Autowired private ClienteRepository clienteRepository;
-    @Autowired private ProductoRepository productoRepository;
-    @Autowired private PromocionRepository promocionRepository;
-
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private ProductoRepository productoRepository;
+    @Autowired
+    private PromocionRepository promocionRepository;
+    @Autowired
+    private EmpleadoRepository empleadoRepository;
+    @Autowired
+    private EmpleadoPedidoRepository empleadoPedidoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
@@ -28,7 +37,6 @@ public class AdminService {
         }
         clienteRepository.deleteById(id);
     }
-
 
     public List<Producto> listarProductos() {
         return productoRepository.findAll();
@@ -63,8 +71,6 @@ public class AdminService {
         p.setStock(dto.stock());
     }
 
-    // ================= PROMOCIONES =================
-
     public List<Promocion> listarPromociones() {
         return promocionRepository.findAll();
     }
@@ -98,5 +104,47 @@ public class AdminService {
         p.setFechaInicio(dto.fechaInicio());
         p.setFechaFin(dto.fechaFin());
         p.setActivo(dto.activo());
+    }
+    public List<Empleado> listarEmpleados() {
+        return empleadoRepository.findAll();
+    }
+
+    @Transactional
+    public Empleado guardarEmpleado(EmpleadoDTO dto) {
+        Empleado emp = new Empleado();
+        emp.setNombre(dto.nombre());
+        emp.setCargo(dto.cargo());
+        emp.setFechaIngreso(dto.fechaIngreso());
+        return empleadoRepository.save(emp);
+    }
+
+    @Transactional
+    public Empleado actualizarEmpleado(Integer id, EmpleadoDTO dto) {
+        Empleado emp = empleadoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+        
+        emp.setNombre(dto.nombre());
+        emp.setCargo(dto.cargo());
+        emp.setFechaIngreso(dto.fechaIngreso());
+        return empleadoRepository.save(emp);
+    }
+
+    public void eliminarEmpleado(Integer id) {
+        empleadoRepository.deleteById(id);
+    }
+    @Transactional
+    public EmpleadoPedido asignarEmpleadoAPedido(AsignarTareaDTO dto) {
+        Empleado emp = empleadoRepository.findById(dto.empleadoId())
+                .orElseThrow(() -> new RuntimeException("Empleado no existe"));
+
+        Pedido pedido = pedidoRepository.findById(dto.pedidoId())
+                .orElseThrow(() -> new RuntimeException("Pedido no existe"));
+
+        EmpleadoPedido asignacion = new EmpleadoPedido();
+        asignacion.setEmpleado(emp);
+        asignacion.setPedido(pedido);
+        asignacion.setRolEnPedido(dto.funcion());
+
+        return empleadoPedidoRepository.save(asignacion);
     }
 }
