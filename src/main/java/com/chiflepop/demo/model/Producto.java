@@ -23,7 +23,9 @@ public class Producto {
 
     @Column(name = "Stock")
     private Integer stock;
-
+    @Column(name = "Imagen", columnDefinition = "TEXT")
+    private String imagen;
+    
     // Relaciones
     @OneToMany(mappedBy = "producto")
     private Set<DetallePedido> detalles;
@@ -96,6 +98,14 @@ public class Producto {
 
     public void setEmpleadosProductos(Set<EmpleadoProducto> empleadosProductos) {
         this.empleadosProductos = empleadosProductos;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
 }

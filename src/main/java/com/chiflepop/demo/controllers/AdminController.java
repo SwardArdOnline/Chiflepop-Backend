@@ -1,5 +1,6 @@
 package com.chiflepop.demo.controllers;
 
+import com.chiflepop.demo.dto.ClienteAdminDTO;
 import com.chiflepop.demo.dto.admin.AsignarTareaDTO;
 import com.chiflepop.demo.dto.admin.EmpleadoDTO;
 import com.chiflepop.demo.dto.admin.ProductoDTO;
@@ -23,7 +24,7 @@ public class AdminController {
 
     
     @GetMapping("/clientes")
-    public ResponseEntity<List<Cliente>> listarClientes() {
+    public ResponseEntity<List<ClienteAdminDTO>> listarClientes() {
         return ResponseEntity.ok(adminService.listarClientes());
     }
 

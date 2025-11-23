@@ -2,14 +2,19 @@ package com.chiflepop.demo.services;
 
 import com.chiflepop.demo.dto.CompraRequest;
 import com.chiflepop.demo.dto.DetalleCompraDTO;
+import com.chiflepop.demo.dto.DetallePedidoDTO;
+import com.chiflepop.demo.dto.PedidoResponseDTO;
 import com.chiflepop.demo.model.*;
 import com.chiflepop.demo.repository.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidoService {
@@ -28,6 +33,16 @@ public class PedidoService {
     @Autowired
     private CuentaClienteRepository cuentaRepo;
 
+    public PedidoResponseDTO obtenerPedidoPorId(Integer pedidoId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+        
+        return mapToDTO(pedido);
+    }
+    public List<PedidoResponseDTO> listarPedidosPorUsuario(Integer clienteId) {
+        List<Pedido> pedidos = pedidoRepository.findByCliente_ClienteIdOrderByFechaPedidoDesc(clienteId);
+        return pedidos.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
     @Transactional
     public Pedido realizarCompra(Integer clienteId, CompraRequest request) {
 
@@ -87,5 +102,24 @@ public class PedidoService {
 
         pedido.setTotal(totalCompra);
         return pedidoRepository.save(pedido);
+    }
+    private PedidoResponseDTO mapToDTO(Pedido p) {
+        List<DetallePedidoDTO> detallesDTO = p.getDetalles().stream().map(d -> new DetallePedidoDTO(
+            d.getProducto().getNombre(),
+            "https://via.placeholder.com/150", 
+            d.getCantidad(),
+            d.getPrecioUnitario(),
+            d.getPrecioUnitario().multiply(new BigDecimal(d.getCantidad()))
+        )).collect(Collectors.toList());
+
+        return new PedidoResponseDTO(
+            p.getPedidoId(),
+            p.getFechaPedido(),
+            p.getEstado().getDescripcion(),
+            p.getTotal(),
+            p.getDireccionEntrega().getDireccion() + ", " + p.getDireccionEntrega().getCiudad(),
+            p.getCuentaCliente().getBanco().getNombreBanco() + " (" + p.getCuentaCliente().getMetodoPago().getNombreMetodo() + ")",
+            detallesDTO
+        );
     }
 }

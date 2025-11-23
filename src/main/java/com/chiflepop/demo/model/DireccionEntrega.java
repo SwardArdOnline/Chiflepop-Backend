@@ -1,4 +1,6 @@
 package com.chiflepop.demo.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class DireccionEntrega {
 
     @ManyToOne
     @JoinColumn(name = "ClienteID", nullable = false)
+    @JsonIgnore
     private Cliente cliente;
 
     @Column(name = "Direccion", columnDefinition = "TEXT")

@@ -1,5 +1,6 @@
 package com.chiflepop.demo.services.admin;
 
+import com.chiflepop.demo.dto.ClienteAdminDTO;
 import com.chiflepop.demo.dto.admin.AsignarTareaDTO;
 import com.chiflepop.demo.dto.admin.EmpleadoDTO;
 import com.chiflepop.demo.dto.admin.ProductoDTO;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
@@ -27,8 +29,17 @@ public class AdminService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public List<Cliente> listarClientes() {
-        return clienteRepository.findAll();
+    public List<ClienteAdminDTO> listarClientes() {
+        return clienteRepository.findAll().stream()
+            .map(c -> new ClienteAdminDTO(
+                c.getClienteId(),
+                c.getNombre(),
+                c.getEmail(),
+                c.getTelefono(),
+                c.getRol(),
+                c.getFechaRegistro()
+            ))
+            .collect(Collectors.toList());
     }
 
     public void eliminarCliente(Integer id) {
@@ -69,6 +80,7 @@ public class AdminService {
         p.setDescripcion(dto.descripcion());
         p.setPrecio(dto.precio());
         p.setStock(dto.stock());
+        p.setImagen(dto.imagen());
     }
 
     public List<Promocion> listarPromociones() {

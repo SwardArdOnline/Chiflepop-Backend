@@ -1,5 +1,6 @@
 package com.chiflepop.demo.controllers;
 
+import com.chiflepop.demo.dto.CrearCuentaDTO;
 import com.chiflepop.demo.dto.CuentaDTO;
 import com.chiflepop.demo.services.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class CuentaController {
     @GetMapping
     public ResponseEntity<List<CuentaDTO>> obtenerCuentas(@RequestParam Integer clienteId) {
         return ResponseEntity.ok(cuentaService.listarCuentasPorUsuario(clienteId));
+    }
+    @PostMapping
+    public ResponseEntity<CuentaDTO> registrarCuenta(@RequestParam Integer clienteId, @RequestBody CrearCuentaDTO dto) {
+        return ResponseEntity.ok(cuentaService.crearCuenta(clienteId, dto));
     }
 }

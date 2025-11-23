@@ -1,6 +1,7 @@
 package com.chiflepop.demo.repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
     @Query("SELECT SUM(p.total) FROM Pedido p WHERE p.cliente.clienteId = :clienteId")
     BigDecimal sumTotalGastado(Integer clienteId);
+    List<Pedido> findByCliente_ClienteIdOrderByFechaPedidoDesc(Integer clienteId);
 
 }

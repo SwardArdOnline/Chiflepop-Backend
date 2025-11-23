@@ -1,7 +1,10 @@
 package com.chiflepop.demo.controllers;
 
+import com.chiflepop.demo.dto.CrearDireccionDTO;
 import com.chiflepop.demo.model.DireccionEntrega;
 import com.chiflepop.demo.repository.DireccionEntregaRepository;
+import com.chiflepop.demo.services.DireccionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +16,17 @@ public class DireccionController {
 
     @Autowired
     private DireccionEntregaRepository direccionRepository;
+    @Autowired
+    private DireccionService direccionService;
 
     @GetMapping
     public ResponseEntity<List<DireccionEntrega>> misDirecciones(@RequestParam Integer clienteId) {
         return ResponseEntity.ok(direccionRepository.findByCliente_ClienteId(clienteId));
+    }
+    @PostMapping
+    public ResponseEntity<DireccionEntrega> registrarDireccion(
+            @RequestParam Integer clienteId,
+            @RequestBody CrearDireccionDTO dto) {
+        return ResponseEntity.ok(direccionService.crearDireccion(clienteId, dto));
     }
 }

@@ -27,3 +27,11 @@ INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle con C
 INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Ondulado', 'Corte especial ondulado para mayor crocancia y dip.', 3.90, 60);
 INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Mix Tropical', 'Mezcla de chifles, camote frito y yuca frita.', 5.00, 35);
 INSERT INTO Productos (Nombre, Descripcion, Precio, Stock) VALUES ('Chifle Sin Sal', 'La opción saludable, 100% natural sin sodio añadido.', 3.50, 20);
+INSERT INTO DireccionesEntrega (ClienteID, Direccion, Ciudad, Departamento, Pais, Referencia, EsPrincipal) VALUES (1, 'Calle Los Pinos 456', 'Lima', 'Lima', 'Perú', 'Puerta azul', 1);
+
+UPDATE Productos SET Imagen = 'https://i.ibb.co/wNKx40z/chifle-clasico.jpg' WHERE Nombre LIKE '%Clásico%';
+UPDATE Productos SET Imagen = 'https://i.ibb.co/xz806z9/chifle-picante.jpg' WHERE Nombre LIKE '%Picante%';
+UPDATE Productos SET Imagen = 'https://i.ibb.co/0jvqW5S/chifle-limon.jpg' WHERE Nombre LIKE '%Limón%';
+UPDATE Productos SET Imagen = 'https://i.ibb.co/3rT8XgD/chifle-dulce.jpg' WHERE Nombre LIKE '%Dulce%';
+-- Puedes usar una imagen genérica para el resto si quieres
+UPDATE Productos SET Imagen = 'https://via.placeholder.com/300x300.png?text=ChiflePop' WHERE Imagen IS NULL;
