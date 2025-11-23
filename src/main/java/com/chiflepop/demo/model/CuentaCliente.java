@@ -1,5 +1,7 @@
 package com.chiflepop.demo.model;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,9 +30,12 @@ public class CuentaCliente {
     @Column(name = "EsPrincipal")
     private Boolean esPrincipal;
 
+    @Column(name = "Saldo", precision = 10, scale = 2)
+    private BigDecimal saldo;
+
     @Column(name = "FechaRegistro")
     private LocalDateTime fechaRegistro;
-
+    
     public Integer getCuentaClienteId() {
         return cuentaClienteId;
     }
@@ -85,6 +90,14 @@ public class CuentaCliente {
 
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
     
 }

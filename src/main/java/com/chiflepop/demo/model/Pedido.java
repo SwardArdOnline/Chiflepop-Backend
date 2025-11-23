@@ -1,5 +1,7 @@
 package com.chiflepop.demo.model;
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -30,6 +32,39 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido")
     private Set<Reclamo> reclamos;
+    @Column(name = "Total", precision = 10, scale = 2)
+    private BigDecimal total;
+    @ManyToOne
+    @JoinColumn(name = "DireccionEntregaID", nullable = false)
+    private DireccionEntrega direccionEntrega;
+
+    @ManyToOne
+    @JoinColumn(name = "CuentaClienteID", nullable = false)
+    private CuentaCliente cuentaCliente;
+    
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public DireccionEntrega getDireccionEntrega() {
+        return direccionEntrega;
+    }
+
+    public void setDireccionEntrega(DireccionEntrega direccionEntrega) {
+        this.direccionEntrega = direccionEntrega;
+    }
+
+    public CuentaCliente getCuentaCliente() {
+        return cuentaCliente;
+    }
+
+    public void setCuentaCliente(CuentaCliente cuentaCliente) {
+        this.cuentaCliente = cuentaCliente;
+    }
 
     public Integer getPedidoId() {
         return pedidoId;

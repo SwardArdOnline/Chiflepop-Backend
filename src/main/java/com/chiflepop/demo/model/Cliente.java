@@ -17,6 +17,12 @@ public class Cliente {
     @Column(name = "Email", length = 100, unique = true)
     private String email;
 
+    @Column(name = "Password", nullable = false)
+    private String password;
+
+    @Column(name = "Rol", nullable = false)
+    private String rol;
+
     @Column(name = "Telefono", length = 20)
     private String telefono;
 
@@ -44,6 +50,22 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente")
     private Set<ClienteProducto> clientesProductos;
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     public Integer getClienteId() {
         return clienteId;
