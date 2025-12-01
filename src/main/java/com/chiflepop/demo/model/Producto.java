@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Productos")
 public class Producto {
@@ -28,12 +30,15 @@ public class Producto {
     
     // Relaciones
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private Set<DetallePedido> detalles;
 
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private Set<ClienteProducto> clientesProductos;
 
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private Set<EmpleadoProducto> empleadosProductos;
 
     public Integer getProductoId() {

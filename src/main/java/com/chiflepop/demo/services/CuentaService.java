@@ -34,7 +34,6 @@ public class CuentaService {
 
     public List<CuentaDTO> listarCuentasPorUsuario(Integer clienteId) {
         List<CuentaCliente> cuentas = cuentaRepository.findByCliente_ClienteId(clienteId);
-
         return cuentas.stream().map(c -> new CuentaDTO(
                 c.getCuentaClienteId(),
                 c.getBanco().getNombreBanco(),
@@ -51,10 +50,8 @@ public class CuentaService {
 
         Banco banco = bancoRepository.findById(dto.bancoId())
                 .orElseThrow(() -> new RuntimeException("Banco no encontrado"));
-
         MetodoPago metodoPago = metodoPagoRepository.findById(dto.metodoPagoId())
                 .orElseThrow(() -> new RuntimeException("Método de pago no encontrado"));
-
         CuentaCliente cuenta = new CuentaCliente();
         cuenta.setCliente(cliente);
         cuenta.setBanco(banco);
@@ -65,9 +62,7 @@ public class CuentaService {
 
         boolean tieneCuentas = cuentaRepository.findByCliente_ClienteId(clienteId).size() > 0;
         cuenta.setEsPrincipal(!tieneCuentas);
-
         CuentaCliente guardada = cuentaRepository.save(cuenta);
-
         return new CuentaDTO(
                 guardada.getCuentaClienteId(),
                 guardada.getBanco().getNombreBanco(),

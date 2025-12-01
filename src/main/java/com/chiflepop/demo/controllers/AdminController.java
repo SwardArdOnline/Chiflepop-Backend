@@ -21,8 +21,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    
     @GetMapping("/clientes")
     public ResponseEntity<List<ClienteAdminDTO>> listarClientes() {
         return ResponseEntity.ok(adminService.listarClientes());

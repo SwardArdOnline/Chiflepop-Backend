@@ -33,5 +33,4 @@ UPDATE Productos SET Imagen = 'https://i.ibb.co/wNKx40z/chifle-clasico.jpg' WHER
 UPDATE Productos SET Imagen = 'https://i.ibb.co/xz806z9/chifle-picante.jpg' WHERE Nombre LIKE '%Picante%';
 UPDATE Productos SET Imagen = 'https://i.ibb.co/0jvqW5S/chifle-limon.jpg' WHERE Nombre LIKE '%Limón%';
 UPDATE Productos SET Imagen = 'https://i.ibb.co/3rT8XgD/chifle-dulce.jpg' WHERE Nombre LIKE '%Dulce%';
--- Puedes usar una imagen genérica para el resto si quieres
 UPDATE Productos SET Imagen = 'https://via.placeholder.com/300x300.png?text=ChiflePop' WHERE Imagen IS NULL;

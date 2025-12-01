@@ -86,7 +86,6 @@ public class AuthService {
 
     public Cliente login(String email, String passwordRaw) {
         Optional<Cliente> usuarioOpt = clienteRepository.findByEmail(email);
-
         if (usuarioOpt.isPresent()) {
             Cliente usuario = usuarioOpt.get();
             if (passwordEncoder.matches(passwordRaw, usuario.getPassword())) {
